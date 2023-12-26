@@ -1,0 +1,12 @@
+.page404 {
+  background-color: thistle;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 11em;
+}
+
+.page404-title {
+  font-family: "Marcellus", serif;
+  font-size: 2.5em;
+  font-weight: 100;
+}

@@ -1,0 +1,148 @@
+main.modal-wrap input#trigger {
+  display: none;
+}
+
+article.modal-overlay {
+  font-family: "Cormorant Garamond", serif;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.5s, transform 0s 0.5s;
+  transform: scale(0);
+}
+
+label.modal-trigger {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+section.modal-content {
+  position: relative;
+  align-self: center;
+  max-width: 850px;
+  padding: 3em 3em 2em 3em;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 0.5em;
+  line-height: 2em;
+  transition: 0.5s;
+}
+
+label.close-button {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+section.modal-content-flower {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+div.modal-content-flower-card {
+  margin: 2.5em 0 0 4em;
+  width: 35%;
+}
+
+h2.modal-content-flower-title {
+  font-size: 2.5em;
+  text-align: left;
+}
+
+p.modal-content-flower-price {
+  font-size: 1.6em;
+  color: rgb(80, 80, 80);
+  font-family: "EB Garamond", serif;
+  text-align: left;
+  margin: 1.5em 0;
+}
+
+table.modal-content-table {
+  margin-bottom: 3.5em;
+}
+
+label.quantity-label {
+  font-size: 1.3em;
+}
+
+div.modal-content-table-box {
+  margin: 0 1.4em;
+  border: solid 1px rgb(160, 160, 160);
+  border-radius: 0.2em;
+}
+
+button.decrease {
+  width: 2em;
+  height: 1.6em;
+  font-size: 1.4em;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.1em;
+  background-color: white;
+  transition: background-color 0.2s;
+}
+
+button.decrease:hover {
+  background-color: rgba(105, 95, 220, 0.1);
+}
+
+input.quantity {
+  text-align: center;
+  width: 3em;
+  height: 1.6em;
+  font-size: 1.3em;
+  font-family: "EB Garamond", serif;
+  border: none;
+  outline: none;
+}
+
+button.increase {
+  width: 2em;
+  height: 1.6em;
+  font-size: 1.4em;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.2em;
+  background-color: white;
+  transition: background-color 0.2s;
+}
+
+button.increase:hover {
+  background-color: rgba(105, 95, 220, 0.1);
+}
+
+button.modal-content-cart-button {
+  width: 100%;
+  height: 4em;
+  font-family: "Cormorant Garamond", serif;
+  cursor: pointer;
+  color: white;
+  font-weight: 900;
+  background-color: #5c5c68;
+  border: none;
+  border-radius: 1em;
+  transition: background-color 0.2s;
+}
+
+button.modal-content-cart-button:hover {
+  background-color: #5c5c68d1;
+}
+
+p.description {
+  text-align: left;
+}
+
+.modal-wrap input:checked ~ .modal-overlay {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s;
+}

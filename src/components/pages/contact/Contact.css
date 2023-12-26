@@ -1,0 +1,12 @@
+.contact {
+  background-color: cadetblue;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 11em;
+}
+
+.contact-title {
+  font-family: "Marcellus", serif;
+  font-size: 2.5em;
+  font-weight: 100;
+}

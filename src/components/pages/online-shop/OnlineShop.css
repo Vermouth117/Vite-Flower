@@ -1,0 +1,56 @@
+.online-shop {
+  background-color: #f2f2f2;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 11em;
+}
+
+.online-shop-title {
+  font-family: "Marcellus", serif;
+  font-size: 2.5em;
+  font-weight: 100;
+}
+
+.online-shop-flower-cardList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  gap: 3em 2em;
+  padding: 2em 5em;
+}
+
+.online-shop-flower-card {
+  transition: all 0.3s;
+}
+
+.online-shop-flower-card:hover {
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em 0.1em rgb(200, 200, 200);
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.online-shop-flower-card:hover .online-shop-flower-image {
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+.online-shop-flower-image {
+  width: 360px;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em 0.1em rgb(200, 200, 200);
+}
+
+.online-shop-flower-title {
+  margin: 0.5em 0 0.3em 0;
+  font-size: 1.2em;
+  color: rgb(50, 50, 50);
+  font-family: "Cormorant Garamond", serif;
+}
+
+.online-shop-flower-price {
+  font-size: 1.5em;
+  color: rgb(80, 80, 80);
+  font-family: "EB Garamond", serif;
+}
