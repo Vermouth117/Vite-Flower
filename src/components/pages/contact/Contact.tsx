@@ -1,11 +1,11 @@
 import { memo } from "react";
 
-import "./Contact.css";
+import styles from "./Contact.module.scss";
 
 const Contact = memo(() => {
   return (
-    <main className="contact">
-      <h2 className="contact-title">Contact</h2>
+    <main className={styles.contact}>
+      <h2 className={styles.title}>Contact</h2>
     </main>
   );
 });

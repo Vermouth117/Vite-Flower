@@ -1,0 +1,10 @@
+@use "../../../variables" as *;
+
+.page404 {
+  background-color: thistle;
+  @include page-main;
+
+  .title {
+    @include page-h2-title;
+  }
+}

@@ -1,0 +1,54 @@
+@use "../../../variables" as *;
+
+.onlineShop {
+  background-color: #f2f2f2;
+  @include page-main;
+
+  .title {
+    @include page-h2-title;
+  }
+
+  .flowerCardList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    gap: 3em 2em;
+    padding: 2em 5em;
+
+    .flowerCard:hover {
+      border-radius: 0.5em;
+      box-shadow: 0 0 0.5em 0.1em rgb(200, 200, 200);
+      transform: translateY(-2px);
+      cursor: pointer;
+    }
+
+    .flowerCard:hover .flowerImage {
+      border-radius: 0.5em 0.5em 0 0;
+    }
+
+    .flowerCard {
+      transition: all 0.3s;
+
+      .flowerImage {
+        width: 360px;
+        height: 360px;
+        object-fit: cover;
+        border-radius: 0.5em;
+        box-shadow: 0 0 0.5em 0.1em rgb(200, 200, 200);
+      }
+
+      .flowerTitle {
+        margin: 0.5em 0 0.3em 0;
+        font-size: 1.2em;
+        color: rgb(50, 50, 50);
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      .flowerPrice {
+        font-size: 1.5em;
+        color: rgb(80, 80, 80);
+        font-family: "EB Garamond", serif;
+      }
+    }
+  }
+}

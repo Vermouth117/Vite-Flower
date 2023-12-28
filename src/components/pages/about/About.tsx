@@ -1,11 +1,11 @@
 import { memo } from "react";
 
-import "./About.css";
+import styles from "./About.module.scss";
 
 const About = memo(() => {
   return (
-    <main className="about">
-      <h2 className="about-title">About</h2>
+    <main className={styles.about}>
+      <h2 className={styles.title}>About</h2>
     </main>
   );
 });

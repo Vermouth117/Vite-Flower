@@ -1,11 +1,11 @@
 import { memo } from "react";
 
-import "./Order.css";
+import styles from "./Order.module.scss";
 
 const Order = memo(() => {
   return (
-    <main className="order">
-      <h2 className="order-title">Order</h2>
+    <main className={styles.order}>
+      <h2 className={styles.title}>Order</h2>
     </main>
   );
 });

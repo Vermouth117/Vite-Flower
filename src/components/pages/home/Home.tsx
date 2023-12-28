@@ -1,11 +1,11 @@
 import { memo } from "react";
 
-import "./Home.css";
+import styles from "./Home.module.scss";
 
 const Home = memo(() => {
   return (
     <main>
-      <div className="home-image"></div>
+      <div className={styles.homeImage}></div>
     </main>
   );
 });

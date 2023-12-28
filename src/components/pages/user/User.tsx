@@ -1,6 +1,6 @@
 import { Fragment, memo, useCallback, useEffect, useState } from "react";
 
-import "./User.css";
+import styles from "./User.module.scss";
 
 export type Props = {
   flower_id: number;
@@ -57,10 +57,10 @@ const User = memo(() => {
   );
 
   return (
-    <main className="user-info">
-      <h2 className="user-title">History</h2>
-      <form className="cart-form">
-        <table className="cart-table">
+    <main className={styles.userInfo}>
+      <h2 className={styles.title}>History</h2>
+      <form>
+        <table>
           <thead>
             <tr>
               <th colSpan={2}></th>
@@ -81,25 +81,25 @@ const User = memo(() => {
                 <tr>
                   <td>
                     <img
-                      className="cart-table-flower"
+                      className={styles.flowerImage}
                       src={flowerInfo["picture_url"]}
                       alt="花束"
                     />
                   </td>
-                  <td className="col2">
-                    <h3 className="cart-table-flower-title">
+                  <td className={styles.col2}>
+                    <h3 className={styles.flowerTitle}>
                       {flowerInfo["flower_name"]}
                     </h3>
                     <button
                       type="button"
-                      className="deleteButton"
+                      className={styles.deleteButton}
                       onClick={() => handleCancel(index)}
                     >
                       キャンセル
                     </button>
                   </td>
                   <td>
-                    <p className="online-shop-flower-price">{`¥${(
+                    <p className={styles.flowerPrice}>{`¥${(
                       parseInt(flowerInfo["price"]) / flowerInfo["quantity"]
                     )
                       .toString()
@@ -112,7 +112,7 @@ const User = memo(() => {
                       )}`}</p>
                   </td>
                   <td>
-                    <div className="history-table-box">
+                    <div className={styles.historyTableBox}>
                       <input
                         type="text"
                         id="quantity"
@@ -123,7 +123,7 @@ const User = memo(() => {
                     </div>
                   </td>
                   <td>
-                    <p className="online-shop-flower-price">{`¥${flowerInfo[
+                    <p className={styles.flowerPrice}>{`¥${flowerInfo[
                       "price"
                     ]
                       .slice(0, -3)
@@ -140,9 +140,9 @@ const User = memo(() => {
             ))}
           </tbody>
         </table>
-        <section className="total-box">
-          <div className="total-box-title">合計金額</div>
-          <p className="online-shop-flower-price">{`¥${orderFlowerList
+        <section className={styles.totalBox}>
+          <div className={styles.title}>合計金額</div>
+          <p className={styles.flowerPrice}>{`¥${orderFlowerList
             .reduce((prev, curr) => prev + parseInt(curr["price"]), 0)
             .toString()
             .slice(0, -3)

@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 
-import "./OnlineShop.css";
+import styles from "./OnlineShop.module.scss";
 import Modal from "./Modal";
 import { FlowerInfo } from "../../../models/types";
 
@@ -29,25 +29,25 @@ const OnlineShop = memo(() => {
   );
 
   return (
-    <main className="online-shop">
-      <h2 className="online-shop-title">Flower</h2>
-      <article className="online-shop-flower-cardList">
+    <main className={styles.onlineShop}>
+      <h2 className={styles.title}>Flower</h2>
+      <article className={styles.flowerCardList}>
         {FlowerList.map((flowerInfo: FlowerInfo, index) => {
           return (
             <section
               key={flowerInfo.id}
-              className="online-shop-flower-card"
+              className={styles.flowerCard}
               onClick={() => handleClick(index)}
             >
               <div>
                 <img
-                  className="online-shop-flower-image"
+                  className={styles.flowerImage}
                   src={flowerInfo["picture_url"]}
                   alt={flowerInfo["name"]}
                 />
               </div>
-              <h3 className="online-shop-flower-title">{flowerInfo["name"]}</h3>
-              <p className="online-shop-flower-price">
+              <h3 className={styles.flowerTitle}>{flowerInfo["name"]}</h3>
+              <p className={styles.flowerPrice}>
                 {`¥${flowerInfo["price"]
                   .slice(0, -3)
                   .concat(",", flowerInfo["price"].slice(-3))}`}

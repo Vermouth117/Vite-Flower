@@ -1,0 +1,10 @@
+@use "../../../variables" as *;
+
+.contact {
+  background-color: cadetblue;
+  @include page-main;
+
+  .title {
+    @include page-h2-title;
+  }
+}
