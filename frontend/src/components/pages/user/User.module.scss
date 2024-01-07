@@ -1,0 +1,64 @@
+@use "../../../variables" as *;
+
+.userInfo {
+  background-color: white;
+  @include page-main;
+
+  .pageTitle {
+    @include page-h2-title;
+  }
+
+  form {
+    width: 70%;
+    margin: auto;
+
+    table {
+      width: 100%;
+      margin-top: 3em;
+
+      thead {
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      .flowerImage {
+        width: 200px;
+        height: 200px;
+        margin: 0.5em 0 0.2em 0;
+        @include flower-image;
+      }
+
+      .col2 {
+        padding-right: 2em;
+
+        .flowerTitle {
+          font-size: 1.8em;
+          @include flower-title;
+        }
+
+        .deleteButton:hover {
+          @include delete-button-hover;
+        }
+
+        .deleteButton {
+          @include delete-button;
+        }
+      }
+
+      .flowerPrice {
+        font-size: 1.5em;
+        @include flower-price;
+      }
+
+      .historyTableBox {
+        width: 9.5em;
+        margin: auto;
+        border-radius: 0.2em;
+        border: none;
+      }
+    }
+
+    .totalBox {
+      @include total-box;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@use "../../../variables" as *;
+
+.about {
+  background-color: cornflowerblue;
+  @include page-main;
+
+  .pageTitle {
+    @include page-h2-title;
+  }
+}
