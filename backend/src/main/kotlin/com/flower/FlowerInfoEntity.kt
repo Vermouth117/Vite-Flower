@@ -5,12 +5,12 @@ import jakarta.persistence.Id
 import java.util.Date
 
 @Entity
-data class FlowerInfo (
+data class FlowerInfoEntity (
     @Id
     val id: Int,
     val name: String,
-    val pictureUrl: String,
     val price: String,
     val quantity: Int,
     val postedDate: Date,
+    val pictureUrl: String,
 )

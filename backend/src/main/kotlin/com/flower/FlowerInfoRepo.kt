@@ -5,4 +5,4 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface Repository : CrudRepository<FlowerInfo, Id>
+interface FlowerInfoRepo : CrudRepository<FlowerInfoEntity, Id>

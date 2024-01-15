@@ -5,35 +5,30 @@ import styles from "./OnlineShop.module.scss";
 import { FlowerInfo } from "../../../models/types";
 
 const OnlineShop = memo(() => {
-
-  const [FlowerList, setFlowerList] = useState<FlowerInfo[]>([]);
+  const [flowerList, setFlowerList] = useState<FlowerInfo[]>([]);
   const [flowerInfo, setFlowerInfo] = useState<FlowerInfo | undefined>();
   const inputTriggerRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     (async () => {
-      const FlowerList = await fetch(
+      const flowerList = await fetch(
         // "/flowerList"
         "http://localhost:8080/flowerList"
       ).then((data) => data.json());
-
-      setFlowerList(FlowerList);
+      setFlowerList(flowerList);
     })();
   }, []);
 
-  const handleClick = useCallback(
-    (index: number) => {
-      setFlowerInfo(FlowerList[index]);
+  const handleClick = useCallback((index: number) => {
+      setFlowerInfo(flowerList[index]);
       inputTriggerRef.current?.click();
-    },
-    [FlowerList]
-  );
+  }, [flowerList]);
 
   return (
     <main className={styles.onlineShop}>
       <h2 className={styles.pageTitle}>Flower</h2>
       <article className={styles.flowerCardList}>
-        {FlowerList.map((flowerInfo: FlowerInfo, index) => {
+        {flowerList.map((flowerInfo: FlowerInfo, index: number) => {
           return (
             <section
               key={flowerInfo.id}
@@ -43,15 +38,15 @@ const OnlineShop = memo(() => {
               <div>
                 <img
                   className={styles.flowerImage}
-                  src={flowerInfo["pictureUrl"]}
-                  alt={flowerInfo["name"]}
+                  src={flowerInfo.pictureUrl}
+                  alt={flowerInfo.name}
                 />
               </div>
-              <h3 className={styles.flowerTitle}>{flowerInfo["name"]}</h3>
+              <h3 className={styles.flowerTitle}>{flowerInfo.name}</h3>
               <p className={styles.flowerPrice}>
-                {`¥${flowerInfo["price"]
+                {`¥ ${flowerInfo.price
                   .slice(0, -3)
-                  .concat(",", flowerInfo["price"].slice(-3))}`}
+                  .concat(",", flowerInfo.price.slice(-3))}`}
               </p>
             </section>
           );

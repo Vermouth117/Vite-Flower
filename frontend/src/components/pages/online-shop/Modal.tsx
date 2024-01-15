@@ -1,34 +1,28 @@
-import { ChangeEvent, MouseEventHandler, memo, useCallback, useContext, useEffect, useReducer } from "react";
+import { ChangeEvent, MouseEvent, memo, useCallback, useReducer } from "react";
 
 import styles from "./Modal.module.scss";
-import { ModalProps } from "../../../models/types";
-import { MyContext } from "../../../router/HomeRoutes";
+import { ModalProps, OrderFlowerInfo } from "../../../models/types";
+import { handleCountUtil } from "../../../utils";
 
 const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
+  const [count, dispatch] = useReducer((
+    prev: number | null,
+    { type, value }: { type: string; value: number | null },
+  ) => {
+    switch (type) {
+      case "decrease":
+        return prev !== null && prev >= 1 ? --prev : 0;
+      case "increase":
+        return prev !== null ? ++prev : null;
+      case "update":
+        return value === null || isNaN(value) || value <= 0 ? null : value;
+      default:
+        return null;
+    }
+  }, 1);
 
-  const [buyCount, setBuyCount, buyFlowerList, setBuyFlowerList] = useContext(MyContext);
-
-  const [count, dispatch] = useReducer(
-    (
-      prev: number | null,
-      { type, value }: { type: string; value: number | null }
-    ) => {
-      switch (type) {
-        case "decrease":
-          return prev !== null ? --prev : null;
-        case "increase":
-          return prev !== null ? ++prev : null;
-        case "update":
-          return value === null || isNaN(value) ? null : value;
-        default:
-          return null;
-      }
-    },
-    1
-  );
-
-  const handleCount: MouseEventHandler = useCallback((e) => {
-    const action = e.currentTarget.getAttribute("class");
+  const handleCount = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const action = handleCountUtil(e);
     action && dispatch({ type: action, value: null });
   }, []);
 
@@ -36,20 +30,36 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
     dispatch({ type: "update", value: parseInt(e.target.value) || null });
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("buyCount", JSON.stringify(buyCount));
-  }, [buyCount]);
-
-  useEffect(() => {
-    localStorage.setItem("buyFlowerList", JSON.stringify(buyFlowerList));
-  }, [buyFlowerList]);
-
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setBuyCount(count);
-    flowerInfo && setBuyFlowerList([...buyFlowerList, flowerInfo]);
     dispatch({ type: "update", value: 1 });
     inputTriggerRef.current?.click();
+
+    if (flowerInfo) {
+      const postCartInBody: OrderFlowerInfo = {
+        flowerId: flowerInfo.id,
+        flowerName: flowerInfo.name,
+        customerName: "森﨑陽平",
+        price: flowerInfo.price,
+        quantity: count!!,
+        date: `${new Date().getFullYear()}-${
+          new Date().getMonth() + 1
+        }-${new Date().getDate()}`,
+        pictureUrl: flowerInfo.pictureUrl,
+        cart: true,
+      };
+
+      await fetch(
+        "http://localhost:8080/cartIn",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postCartInBody),
+        }
+      );
+    }
   };
 
   const handleClickReset = useCallback(() => {
@@ -69,7 +79,8 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
         <label htmlFor="trigger" className={styles.modalTrigger}></label>
         <section className={styles.modalContent}>
           <label htmlFor="trigger" className={styles.closeButton}>
-            {" "}✖️{" "}
+            {" "}
+            ✖️{" "}
           </label>
           <section className={styles.flowerModal}>
             <div>
@@ -94,8 +105,12 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
                   <tbody>
                     <tr>
                       <th>
-                        <label htmlFor="quantity" className={styles.quantityLabel}>
-                          {" "}個数{" "}
+                        <label
+                          htmlFor="quantity"
+                          className={styles.quantityLabel}
+                        >
+                          {" "}
+                          個数{" "}
                         </label>
                       </th>
                       <td>
@@ -127,9 +142,7 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
                     </tr>
                   </tbody>
                 </table>
-                <button className={styles.cartButton}>
-                  {" "}カートに入れる{" "}
-                </button>
+                <button className={styles.cartButton}>カートに入れる</button>
               </form>
             </div>
           </section>

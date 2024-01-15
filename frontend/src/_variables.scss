@@ -47,11 +47,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 2em 0.8em;
+  margin: 2em 0;
 
   .totalTitle {
     font-family: "Cormorant Garamond", serif;
-    margin-right: 5em;
+    margin-right: 2em;
     font-size: 1.2em;
   }
 
@@ -60,6 +60,9 @@
   }
 
   .totalFlowerPrice {
+    width: 130px;
+    margin-right: 13px;
+    text-align: right;
     font-size: 1.5em;
     @include flower-price;
   }

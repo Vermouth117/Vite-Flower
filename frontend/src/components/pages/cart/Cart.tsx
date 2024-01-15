@@ -1,92 +1,83 @@
-import { ChangeEvent, Fragment, MouseEvent, memo, useCallback, useContext, useEffect, useReducer, useState } from "react";
+import { ChangeEvent, Fragment, MouseEvent, memo, useCallback, useEffect, useReducer, useState } from "react";
 
 import styles from "./Cart.module.scss";
-import { MyContext } from "../../../router/HomeRoutes";
+import { handleCountUtil } from "../../../utils";
+import { OrderFlowerInfo } from "../../../models/types";
 
 const Cart = memo(() => {
-
-  const [buyCount, setBuyCount, buyFlowerList, setBuyFlowerList] = useContext(MyContext);
+  const [cartList, setCartList] = useState<OrderFlowerInfo[]>([]);
   const [totalPriceList, setTotalPriceList] = useState<number[]>([]);
 
   useEffect(() => {
-    const savedBuyFlowerList = localStorage.getItem("buyFlowerList");
-    const restoredBuyCount = savedBuyFlowerList
-      ? JSON.parse(savedBuyFlowerList)
-      : null;
-
-    setBuyFlowerList(restoredBuyCount);
+    (async () => {
+      const cartList = await fetch(
+        "http://localhost:8080/cartList"
+      ).then((data) => data.json());
+      setCartList(cartList);
+    })();
   }, []);
 
   useEffect(() => {
-    const savedBuyCount = localStorage.getItem("buyCount");
-    const restoredBuyCount = savedBuyCount
-      ? JSON.parse(savedBuyCount)
-      : null;
+    dispatch({ type: "update", value: cartList.map((cartInfo) => cartInfo.quantity), index: null });
+  }, [cartList]);
 
-    setBuyCount(restoredBuyCount);
-  }, []);
-
-  useEffect(() => {
-    dispatch({ type: "update", value: buyCount });
-  }, [buyCount]);
-
-  const [count, dispatch] = useReducer(
-    (
-      prev: number | null,
-      { type, value }: { type: string; value: number | null }
-    ) => {
-      switch (type) {
-        case "decrease":
-          return prev !== null ? --prev : null;
-        case "increase":
-          return prev !== null ? ++prev : null;
-        case "update":
-          return value === null || isNaN(value) ? null : value;
-        default:
-          return null;
-      }
-    },
-    buyCount
-  );
-
-  useEffect(() => {
-    setTotalPriceList(
-      buyFlowerList.map((flowerInfo) => {
-        return parseInt(flowerInfo.price) * (count ? count : 1);
-      })
-    );
-  }, [count]);
-
-  const handleCount = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    const buttonClass = (e.currentTarget as HTMLButtonElement).getAttribute("class");
-
-    if (buttonClass) {
-      const firstUnderscoreIndex = buttonClass.indexOf("_");
-      const secondUnderscoreIndex = buttonClass.indexOf("_", firstUnderscoreIndex + 1);
-      const action = buttonClass.substring(firstUnderscoreIndex + 1, secondUnderscoreIndex);
-
-      action && dispatch({ type: action, value: null });
+  const [count, dispatch] = useReducer((
+    prev: number[] | null,
+    { type, value, index }: { type: string; value: number[] | number | null, index: number | null },
+  ): number[] | null => {
+    switch (type) {
+      case "decrease":
+        if (prev && prev[index!] > 0) {
+          const updatedPrev = [...prev];
+          --updatedPrev[index!];
+          return updatedPrev;
+        }
+        return prev;
+      case "increase":
+        if (prev) {
+          const updatedPrev = [...prev];
+          ++updatedPrev[index!];
+          return updatedPrev;
+        }
+        return prev;
+      case "update":
+        if (Array.isArray(value)) {
+          return value;
+        } else if (prev) {
+          const updatedPrev = [...prev];
+          updatedPrev[index!] = value ? value : 0;
+          return updatedPrev;
+        }
+        return prev;
+      default:
+        return null;
     }
   }, []);
 
-  const inputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "update", value: parseInt(e.target.value) || null });
+  const handleCount = useCallback((e: MouseEvent<HTMLButtonElement>, index: number) => {
+    const action = handleCountUtil(e);
+    action && dispatch({ type: action, value: null, index: index });
+  }, []);
+
+  const inputChange = useCallback((e: ChangeEvent<HTMLInputElement>, index: number) => {
+    dispatch({ type: "update", value: parseInt(e.target.value) || null, index: index });
   }, []);
 
   const handleSubmitPost = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     await Promise.all(
-      buyFlowerList.map(async (flowerInfo, index) => {
-        const postObj = {
-          flower_id: flowerInfo["id"],
-          flower_name: flowerInfo["name"],
-          customer_name: "森﨑陽平",
-          picture_url: flowerInfo["pictureUrl"],
-          price: totalPriceList[index],
-          quantity: buyCount,
+      cartList.map(async (cartInfo, index) => {
+        const postObj: OrderFlowerInfo = {
+          flowerId: cartInfo.flowerId,
+          flowerName: cartInfo.flowerName,
+          customerName: "森﨑陽平",
+          price: totalPriceList[index].toString(),
+          quantity: cartInfo.quantity,
           date: `${new Date().getFullYear()}-${
             new Date().getMonth() + 1
           }-${new Date().getDate()}`,
+          pictureUrl: cartInfo.pictureUrl,
+          cart: false,
         };
 
         const postData = await fetch(
@@ -103,14 +94,37 @@ const Cart = memo(() => {
 
         console.log(postData);
 
-        setBuyFlowerList([]);
         setTotalPriceList([]);
-        localStorage.setItem("buyFlowerList", JSON.stringify([]));
       })
     );
   };
 
-  console.log(count);
+  const handleDelete = useCallback(
+    async (index: number) => {
+      await fetch(
+        "http://localhost:8080/deleteInCart",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cartList[index]),
+        }
+      ).then((data) => {
+        cartList.splice(index, 1);
+        return data.json();
+      });
+    },
+    [cartList]
+  );
+
+  useEffect(() => {
+    setTotalPriceList(
+      cartList.map((cartInfo, index) => {
+        return parseInt(cartInfo.price) * count![index];
+      })
+    );
+  }, [count]);
 
   return (
     <main className={styles.cartList}>
@@ -122,7 +136,7 @@ const Cart = memo(() => {
               <th colSpan={2}></th>
               <th>価格</th>
               <th>個数</th>
-              <th>合計</th>
+              <th style={{ width: "130px" }}>合計</th>
             </tr>
           </thead>
           <tbody>
@@ -132,33 +146,40 @@ const Cart = memo(() => {
                 colSpan={5}
               ></td>
             </tr>
-            {buyFlowerList.map((flowerInfo, index) => {
+            {cartList.map((cartInfo, index) => {
               return (
                 <Fragment key={index}>
                   <tr>
                     <td>
                       <img
                         className={styles.flowerImage}
-                        src={flowerInfo["pictureUrl"]}
+                        src={cartInfo.pictureUrl}
                         alt="花束"
                       />
                     </td>
                     <td className={styles.col2}>
                       <h3 className={styles.flowerTitle}>
-                        {flowerInfo["name"]}
+                        {cartInfo.flowerName}
                       </h3>
                       <div>
-                        <button type="button" className={styles.deleteButton}>
+                        <button
+                          type="button"
+                          className={styles.deleteButton}
+                          onClick={() => handleDelete(index)}
+                        >
                           削除
                         </button>
                       </div>
                     </td>
                     <td>
-                      <p className={styles.flowerPrice}>
-                        {flowerInfo &&
-                          `¥${flowerInfo["price"]
+                      <p className={styles.defaultFlowerPrice}>
+                        {cartInfo &&
+                          `¥ ${cartInfo.price
+                            .toString()
                             .slice(0, -3)
-                            .concat(",", flowerInfo["price"].slice(-3))}`}
+                            .concat(",", cartInfo.price
+                              .toString()
+                              .slice(-3))}`}
                       </p>
                     </td>
                     <td>
@@ -166,7 +187,7 @@ const Cart = memo(() => {
                         <button
                           type="button"
                           className={styles.decrease}
-                          onClick={(e) => handleCount(e)}
+                          onClick={(e) => handleCount(e, index)}
                         >
                           −
                         </button>
@@ -174,14 +195,16 @@ const Cart = memo(() => {
                           type="text"
                           id="quantity"
                           name="quantity"
-                          value={count !== null ? count.toString() : ""}
+                          value={count && count[index] !== undefined ? count[index] : ""}
+
                           className={styles.quantityInput}
-                          onChange={(e) => inputChange(e)}
+                          onChange={(e) => inputChange(e, index)}
+
                         />
                         <button
                           type="button"
                           className={styles.increase}
-                          onClick={(e) => handleCount(e)}
+                          onClick={(e) => handleCount(e, index)}
                         >
                           +
                         </button>
@@ -189,11 +212,12 @@ const Cart = memo(() => {
                     </td>
                     <td>
                       <p className={styles.flowerPrice}>
-                        {totalPriceList[0] &&
-                          `¥${totalPriceList[index]
+                        {totalPriceList[index]
+                          ? `¥ ${totalPriceList[index]
                             .toString()
                             .slice(0, -3)
-                            .concat(",", totalPriceList[index].toString().slice(-3))}`}
+                            .concat(",", totalPriceList[index].toString().slice(-3))}`
+                          : "¥ 0"}
                       </p>
                     </td>
                   </tr>
@@ -211,15 +235,16 @@ const Cart = memo(() => {
         <section className={styles.totalBox}>
           <div className={styles.totalTitle}>合計金額</div>
           <p className={styles.totalFlowerPrice}>
-            {`¥${totalPriceList
-              .reduce((prev, curr) => prev + curr, 0)
-              .toString()
-              .slice(0, -3)
-              .concat(",", totalPriceList
+            {`¥ ${totalPriceList.reduce((prev, curr) => prev + curr, 0)
+              ? totalPriceList
                 .reduce((prev, curr) => prev + curr, 0)
                 .toString()
-                .toString()
-                .slice(-3))}`}
+                .slice(0, -3)
+                .concat(",", totalPriceList
+                  .reduce((prev, curr) => prev + curr, 0)
+                  .toString()
+                  .slice(-3))
+              : 0}`}
           </p>
         </section>
         <div className={styles.buyButtonBox}>

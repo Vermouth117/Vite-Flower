@@ -1,10 +1,9 @@
 import { Fragment, memo, useCallback, useEffect, useState } from "react";
 
 import styles from "./User.module.scss";
-import { OrderFlowerInfo } from "../../../models/types"
+import { OrderFlowerInfo } from "../../../models/types";
 
 const User = memo(() => {
-
   const [orderFlowerList, setOrderFlowerList] = useState<OrderFlowerInfo[]>([]);
   const [flag, setFlag] = useState(false);
 
@@ -26,7 +25,6 @@ const User = memo(() => {
 
   const handleCancel = useCallback(
     async (index: number) => {
-      console.log(orderFlowerList[index]);
       const deleteData = await fetch(
         // "/deleteOrder",
         "http://localhost:8080/deleteOrder",

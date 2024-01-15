@@ -3,7 +3,7 @@
 .order {
   background-color: darksalmon;
   @include page-main;
-  
+
   .pageTitle {
     @include page-h2-title;
   }

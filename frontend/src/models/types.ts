@@ -2,9 +2,9 @@ import { RefObject } from "react";
 
 export type FlowerInfo = {
   id: number;
-  pictureUrl: string;
   name: string;
   price: string;
+  pictureUrl: string;
 };
 
 export type ModalProps = {
@@ -16,8 +16,9 @@ export type OrderFlowerInfo = {
   flowerId: number;
   flowerName: string;
   customerName: string;
-  pictureUrl: string;
   price: string;
   quantity: number;
   date: string;
+  pictureUrl: string;
+  cart: boolean;
 };
