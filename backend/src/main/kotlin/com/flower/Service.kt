@@ -16,7 +16,16 @@ class Service(
         return allOrder.filter { orderInfoEntity -> orderInfoEntity.cart }
     }
     
-    fun postCartIn(postCartInObj: OrderInfoEntity) {
-        orderInfoRepo.save(postCartInObj)
+    fun postInCart(postInCartObj: OrderInfoEntity) {
+        orderInfoRepo.save(postInCartObj)
+    }
+    
+    fun deleteInCart(deleteInCartObj: OrderInfoEntity) {
+        orderInfoRepo.delete(deleteInCartObj)
+    }
+    
+    fun getPurchaseHistory(): List<OrderInfoEntity> {
+        val allOrder: List<OrderInfoEntity> = orderInfoRepo.findAll() as MutableList<OrderInfoEntity>
+        return allOrder.filter { orderInfoEntity -> !orderInfoEntity.cart }
     }
 }

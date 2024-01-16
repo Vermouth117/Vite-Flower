@@ -41,9 +41,9 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
         flowerName: flowerInfo.name,
         customerName: "森﨑陽平",
         price: flowerInfo.price,
-        quantity: count!!,
-        date: `${new Date().getFullYear()}-${
-          new Date().getMonth() + 1
+        quantity: count!,
+        date: `${new Date().getFullYear()
+        }-${new Date().getMonth() + 1
         }-${new Date().getDate()}`,
         pictureUrl: flowerInfo.pictureUrl,
         cart: true,
@@ -86,19 +86,19 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
             <div>
               <img
                 className={styles.flowerImage}
-                src={flowerInfo && flowerInfo["pictureUrl"]}
-                alt={flowerInfo && flowerInfo["name"]}
+                src={flowerInfo && flowerInfo.pictureUrl}
+                alt={flowerInfo && flowerInfo.name}
               />
             </div>
             <div className={styles.flowerCard}>
               <h2 className={styles.flowerTitle}>
-                {flowerInfo && flowerInfo["name"]}
+                {flowerInfo && flowerInfo.name}
               </h2>
               <p className={styles.flowerPrice}>
                 {flowerInfo &&
-                  `¥${flowerInfo["price"]
+                  `¥${flowerInfo.price
                     .slice(0, -3)
-                    .concat(",", flowerInfo["price"].slice(-3))}`}
+                    .concat(",", flowerInfo.price.slice(-3))}`}
               </p>
               <form onSubmit={handleSubmit}>
                 <table>

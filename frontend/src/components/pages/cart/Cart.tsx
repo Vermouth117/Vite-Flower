@@ -1,8 +1,8 @@
-import { ChangeEvent, Fragment, MouseEvent, memo, useCallback, useEffect, useReducer, useState } from "react";
+import {ChangeEvent, Fragment, memo, MouseEvent, useCallback, useEffect, useReducer, useState} from "react";
 
 import styles from "./Cart.module.scss";
-import { handleCountUtil } from "../../../utils";
-import { OrderFlowerInfo } from "../../../models/types";
+import {handleCountUtil} from "../../../utils";
+import {OrderFlowerInfo} from "../../../models/types";
 
 const Cart = memo(() => {
   const [cartList, setCartList] = useState<OrderFlowerInfo[]>([]);
@@ -73,8 +73,8 @@ const Cart = memo(() => {
           customerName: "森﨑陽平",
           price: totalPriceList[index].toString(),
           quantity: cartInfo.quantity,
-          date: `${new Date().getFullYear()}-${
-            new Date().getMonth() + 1
+          date: `${new Date().getFullYear()
+          }-${new Date().getMonth() + 1
           }-${new Date().getDate()}`,
           pictureUrl: cartInfo.pictureUrl,
           cart: false,
@@ -82,7 +82,7 @@ const Cart = memo(() => {
 
         const postData = await fetch(
           // "/order",
-          "http://localhost:8080/order",
+          "http://localhost:8080/purchase",
           {
             method: "POST",
             headers: {
@@ -110,9 +110,11 @@ const Cart = memo(() => {
           },
           body: JSON.stringify(cartList[index]),
         }
-      ).then((data) => {
-        cartList.splice(index, 1);
-        return data.json();
+      );
+      setCartList((prev) => {
+        const newCartList = [...prev]
+        newCartList.splice(index, 1)
+        return newCartList
       });
     },
     [cartList]
@@ -124,7 +126,7 @@ const Cart = memo(() => {
         return parseInt(cartInfo.price) * count![index];
       })
     );
-  }, [count]);
+  }, [cartList, count]);
 
   return (
     <main className={styles.cartList}>

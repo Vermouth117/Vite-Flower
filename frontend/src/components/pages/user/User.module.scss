@@ -44,7 +44,7 @@
         }
       }
 
-      .flowerPrice {
+      .defaultFlowerPrice {
         font-size: 1.5em;
         @include flower-price;
       }
@@ -54,6 +54,25 @@
         margin: auto;
         border-radius: 0.2em;
         border: none;
+
+        .quantityInput {
+          text-align: center;
+          width: 3em;
+          height: 1.6em;
+          font-size: 1.3em;
+          font-family: "EB Garamond", serif;
+          border: none;
+          outline: none;
+        }
+      }
+
+      .flowerPrice {
+        width: 100px;
+        margin-left: auto;
+        margin-right: 10px;
+        text-align: right;
+        font-size: 1.5em;
+        @include flower-price;
       }
     }
 

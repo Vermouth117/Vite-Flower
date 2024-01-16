@@ -1,5 +1,6 @@
 package com.flower
 
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -19,7 +20,17 @@ class Controller(val service: Service) {
     }
     
     @PostMapping("/cartIn")
-    fun postCartIn(@RequestBody postCartInBody: OrderInfoEntity) {
-        service.postCartIn(postCartInBody)
+    fun postInCart(@RequestBody postInCartBody: OrderInfoEntity) {
+        service.postInCart(postInCartBody)
+    }
+    
+    @DeleteMapping("/deleteInCart")
+    fun deleteInCart(@RequestBody deleteInCartBody: OrderInfoEntity) {
+        service.deleteInCart(deleteInCartBody)
+    }
+    
+    @GetMapping("/purchase")
+    fun getPurchaseHistory(): List<OrderInfoEntity> {
+        return service.getPurchaseHistory()
     }
 }

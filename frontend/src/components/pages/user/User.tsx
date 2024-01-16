@@ -10,8 +10,7 @@ const User = memo(() => {
   useEffect(() => {
     (async () => {
       const orderFlowerList = await fetch(
-        // "/order"
-        "http://localhost:8080/order"
+        "http://localhost:8080/purchase"
       ).then((data) => data.json());
       setOrderFlowerList(orderFlowerList);
     })();
@@ -72,13 +71,13 @@ const User = memo(() => {
                   <td>
                     <img
                       className={styles.flowerImage}
-                      src={flowerInfo["pictureUrl"]}
+                      src={flowerInfo.pictureUrl}
                       alt="花束"
                     />
                   </td>
                   <td className={styles.col2}>
                     <h3 className={styles.flowerTitle}>
-                      {flowerInfo["flowerName"]}
+                      {flowerInfo.flowerName}
                     </h3>
                     <button
                       type="button"
@@ -89,14 +88,14 @@ const User = memo(() => {
                     </button>
                   </td>
                   <td>
-                    <p className={styles.flowerPrice}>{`¥${(
-                      parseInt(flowerInfo["price"]) / flowerInfo["quantity"]
+                    <p className={styles.defaultFlowerPrice}>{`¥${(
+                      parseInt(flowerInfo.price) / flowerInfo.quantity
                     )
                       .toString()
                       .slice(0, -3)
                       .concat(
                         ",",
-                        (parseInt(flowerInfo["price"]) / flowerInfo["quantity"])
+                        (parseInt(flowerInfo.price) / flowerInfo.quantity)
                           .toString()
                           .slice(-3)
                       )}`}</p>
@@ -108,14 +107,18 @@ const User = memo(() => {
                         id="quantity"
                         name="quantity"
                         className={styles.quantityInput}
-                        defaultValue={flowerInfo["quantity"]}
+                        defaultValue={flowerInfo.quantity}
                       />
                     </div>
                   </td>
                   <td>
-                    <p className={styles.flowerPrice}>{`¥${flowerInfo["price"]
+                    <p className={styles.flowerPrice}>{`¥${flowerInfo.price
+                      .toString()
                       .slice(0, -3)
-                      .concat(",", flowerInfo["price"].slice(-3))}`}</p>
+                      .concat(",", flowerInfo.price
+                        .toString()
+                        .slice(-3))}`}
+                    </p>
                   </td>
                 </tr>
                 <tr style={{ height: "auto" }}>
@@ -130,17 +133,19 @@ const User = memo(() => {
         </table>
         <section className={styles.totalBox}>
           <div className={styles.totalTitle}>合計金額</div>
-          <p className={styles.flowerPrice}>{`¥${orderFlowerList
-            .reduce((prev, curr) => prev + parseInt(curr["price"]), 0)
-            .toString()
-            .slice(0, -3)
-            .concat(
-              ",",
-              orderFlowerList
-                .reduce((prev, curr) => prev + parseInt(curr["price"]), 0)
+          <p className={styles.totalFlowerPrice}>
+            {`¥ ${orderFlowerList.reduce((prev, curr) => prev + parseInt(curr.price), 0)
+              ? orderFlowerList
+                .reduce((prev, curr) => prev + parseInt(curr.price), 0)
                 .toString()
-                .slice(-3)
-            )}`}</p>
+                .slice(0, -3)
+                .concat(
+                  ",", orderFlowerList
+                    .reduce((prev, curr) => prev + parseInt(curr.price), 0)
+                    .toString()
+                    .slice(-3))
+              : 0}`}
+          </p>
         </section>
       </form>
     </main>
