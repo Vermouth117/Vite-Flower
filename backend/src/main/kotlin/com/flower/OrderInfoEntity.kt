@@ -15,7 +15,7 @@ data class OrderInfoEntity (
     val flowerName: String,
     val customerName: String,
     val price: BigDecimal,
-    val quantity: Int,
+    var quantity: Int,
     @JsonFormat(pattern = "yyyy-MM-dd")
     val date: Date,
     val pictureUrl: String,

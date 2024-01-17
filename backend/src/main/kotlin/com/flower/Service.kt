@@ -17,7 +17,11 @@ class Service(
     }
     
     fun postInCart(postInCartObj: OrderInfoEntity) {
-        orderInfoRepo.save(postInCartObj)
+        orderInfoRepo.findByFlowerIdAndCustomerNameAndCartTrue(postInCartObj.flowerId, postInCartObj.customerName)?.let {
+            existingOrder ->
+                existingOrder.quantity += postInCartObj.quantity
+                orderInfoRepo.save(existingOrder)
+        } ?: orderInfoRepo.save(postInCartObj)
     }
     
     fun deleteInCart(deleteInCartObj: OrderInfoEntity) {

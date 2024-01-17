@@ -49,11 +49,9 @@
         @include flower-price;
       }
 
-      .historyTableBox {
+      .quantityBox {
         width: 9.5em;
         margin: auto;
-        border-radius: 0.2em;
-        border: none;
 
         .quantityInput {
           text-align: center;
@@ -70,17 +68,11 @@
         font-size: 1.5em;
         @include flower-price;
       }
-    }
 
-    .totalBox {
-      @include total-box;
-
-      .totalFlowerPrice {
-        width: 130px;
-        margin-right: 13px;
-        text-align: right;
-        font-size: 1.5em;
-        @include flower-price;
+      .totalTitle {
+        margin: 2em 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2em;
       }
     }
   }

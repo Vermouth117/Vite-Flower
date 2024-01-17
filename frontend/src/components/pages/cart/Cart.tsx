@@ -74,7 +74,7 @@ const Cart = memo(() => {
           flowerName: cartInfo.flowerName,
           customerName: "森﨑陽平",
           price: totalPriceList[index].toString(),
-          quantity: cartInfo.quantity,
+          quantity: count![index],
           date: `${new Date().getFullYear()
           }-${new Date().getMonth() + 1
           }-${new Date().getDate()}`,
@@ -196,7 +196,6 @@ const Cart = memo(() => {
                           id="quantity"
                           name="quantity"
                           value={count && count[index] !== undefined ? count[index] : ""}
-
                           className={styles.quantityInput}
                           onChange={(e) => inputChange(e, index)}
 

@@ -53,7 +53,7 @@ const User = memo(() => {
             </tr>
           </thead>
           <tbody>
-            <tr style={{ height: "auto" }}>
+            <tr>
               <td
                 style={{ padding: 0, borderTop: "1px solid #f1f1f1" }}
                 colSpan={5}
@@ -95,14 +95,10 @@ const User = memo(() => {
                       )}`}</p>
                   </td>
                   <td>
-                    <div className={styles.historyTableBox}>
-                      <input
-                        type="text"
-                        id="quantity"
-                        name="quantity"
-                        className={styles.quantityInput}
-                        defaultValue={flowerInfo.quantity}
-                      />
+                    <div className={styles.quantityBox}>
+                      <span className={styles.quantityInput}>
+                        {flowerInfo.quantity}
+                      </span>
                     </div>
                   </td>
                   <td>
@@ -115,7 +111,7 @@ const User = memo(() => {
                     </p>
                   </td>
                 </tr>
-                <tr style={{ height: "auto" }}>
+                <tr>
                   <td
                     style={{ padding: 0, borderTop: "1px solid #f1f1f1" }}
                     colSpan={5}
@@ -123,24 +119,28 @@ const User = memo(() => {
                 </tr>
               </Fragment>
             ))}
+            <tr>
+              <td colSpan={3}></td>
+              <td>
+                <div className={styles.totalTitle}>合計金額</div>
+              </td>
+              <td>
+                <p className={styles.flowerPrice}>
+                  {`¥ ${orderFlowerList.reduce((prev, curr) => prev + parseInt(curr.price), 0)
+                    ? orderFlowerList
+                      .reduce((prev, curr) => prev + parseInt(curr.price), 0)
+                      .toString()
+                      .slice(0, -3)
+                      .concat(",", orderFlowerList
+                        .reduce((prev, curr) => prev + parseInt(curr.price), 0)
+                        .toString()
+                        .slice(-3))
+                    : 0}`}
+                </p>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <section className={styles.totalBox}>
-          <div className={styles.totalTitle}>合計金額</div>
-          <p className={styles.totalFlowerPrice}>
-            {`¥ ${orderFlowerList.reduce((prev, curr) => prev + parseInt(curr.price), 0)
-              ? orderFlowerList
-                .reduce((prev, curr) => prev + parseInt(curr.price), 0)
-                .toString()
-                .slice(0, -3)
-                .concat(
-                  ",", orderFlowerList
-                    .reduce((prev, curr) => prev + parseInt(curr.price), 0)
-                    .toString()
-                    .slice(-3))
-              : 0}`}
-          </p>
-        </section>
       </form>
     </main>
   );
