@@ -67,10 +67,6 @@
       }
 
       .flowerPrice {
-        width: 100px;
-        margin-left: auto;
-        margin-right: 10px;
-        text-align: right;
         font-size: 1.5em;
         @include flower-price;
       }
@@ -78,6 +74,14 @@
 
     .totalBox {
       @include total-box;
+
+      .totalFlowerPrice {
+        width: 130px;
+        margin-right: 13px;
+        text-align: right;
+        font-size: 1.5em;
+        @include flower-price;
+      }
     }
   }
 }

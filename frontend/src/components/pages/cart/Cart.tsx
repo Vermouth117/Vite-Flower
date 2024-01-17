@@ -65,9 +65,11 @@ const Cart = memo(() => {
 
   const handleSubmitPost = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setCartList([])
     await Promise.all(
       cartList.map(async (cartInfo, index) => {
-        const postObj: OrderFlowerInfo = {
+        const patchObj: OrderFlowerInfo = {
+          id: cartInfo.id,
           flowerId: cartInfo.flowerId,
           flowerName: cartInfo.flowerName,
           customerName: "森﨑陽平",
@@ -80,20 +82,16 @@ const Cart = memo(() => {
           cart: false,
         };
 
-        const postData = await fetch(
-          // "/order",
+        await fetch(
           "http://localhost:8080/purchase",
           {
-            method: "POST",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(postObj),
+            body: JSON.stringify(patchObj),
           }
-        ).then((data) => data.json());
-
-        console.log(postData);
-
+        );
         setTotalPriceList([]);
       })
     );

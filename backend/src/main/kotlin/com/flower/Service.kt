@@ -28,4 +28,12 @@ class Service(
         val allOrder: List<OrderInfoEntity> = orderInfoRepo.findAll() as MutableList<OrderInfoEntity>
         return allOrder.filter { orderInfoEntity -> !orderInfoEntity.cart }
     }
+    
+    fun patchPurchaseHistory(patchPurchaseHistoryBody: OrderInfoEntity) {
+        orderInfoRepo.save(patchPurchaseHistoryBody)
+    }
+    
+    fun deletePurchaseCancel(deletePurchaseCancelBody: OrderInfoEntity) {
+        orderInfoRepo.delete(deletePurchaseCancelBody)
+    }
 }

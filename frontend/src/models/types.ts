@@ -13,6 +13,7 @@ export type ModalProps = {
 };
 
 export type OrderFlowerInfo = {
+  id: number;
   flowerId: number;
   flowerName: string;
   customerName: string;

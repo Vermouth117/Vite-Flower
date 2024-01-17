@@ -37,6 +37,7 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
 
     if (flowerInfo) {
       const postCartInBody: OrderFlowerInfo = {
+        id: flowerInfo.id,
         flowerId: flowerInfo.id,
         flowerName: flowerInfo.name,
         customerName: "森﨑陽平",
@@ -96,7 +97,7 @@ const Modal = memo(({ inputTriggerRef, flowerInfo }: ModalProps) => {
               </h2>
               <p className={styles.flowerPrice}>
                 {flowerInfo &&
-                  `¥${flowerInfo.price
+                  `¥ ${flowerInfo.price
                     .slice(0, -3)
                     .concat(",", flowerInfo.price.slice(-3))}`}
               </p>

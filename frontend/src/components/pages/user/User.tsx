@@ -5,7 +5,7 @@ import { OrderFlowerInfo } from "../../../models/types";
 
 const User = memo(() => {
   const [orderFlowerList, setOrderFlowerList] = useState<OrderFlowerInfo[]>([]);
-  const [flag, setFlag] = useState(false);
+  // const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -16,17 +16,14 @@ const User = memo(() => {
     })();
   }, []);
 
-  useEffect(() => {
-    setOrderFlowerList(orderFlowerList);
-  }, [flag]);
-
-  console.log(orderFlowerList);
+  // useEffect(() => {
+  //   setOrderFlowerList(orderFlowerList);
+  // }, [flag, orderFlowerList]);
 
   const handleCancel = useCallback(
     async (index: number) => {
-      const deleteData = await fetch(
-        // "/deleteOrder",
-        "http://localhost:8080/deleteOrder",
+      await fetch(
+        "http://localhost:8080/purchaseCancel",
         {
           method: "DELETE",
           headers: {
@@ -34,15 +31,12 @@ const User = memo(() => {
           },
           body: JSON.stringify(orderFlowerList[index]),
         }
-      ).then((data) => {
-        orderFlowerList.splice(index, 1);
-        console.log(orderFlowerList);
-        setFlag(!flag);
-        return data.json();
-      });
-      console.log(deleteData);
+      );
+      const newOrderFlowerList = [...orderFlowerList]
+      newOrderFlowerList.splice(index, 1);
+      setOrderFlowerList(newOrderFlowerList)
     },
-    [orderFlowerList, flag]
+    [orderFlowerList]
   );
 
   return (
@@ -88,7 +82,7 @@ const User = memo(() => {
                     </button>
                   </td>
                   <td>
-                    <p className={styles.defaultFlowerPrice}>{`¥${(
+                    <p className={styles.defaultFlowerPrice}>{`¥ ${(
                       parseInt(flowerInfo.price) / flowerInfo.quantity
                     )
                       .toString()
@@ -112,7 +106,7 @@ const User = memo(() => {
                     </div>
                   </td>
                   <td>
-                    <p className={styles.flowerPrice}>{`¥${flowerInfo.price
+                    <p className={styles.flowerPrice}>{`¥ ${flowerInfo.price
                       .toString()
                       .slice(0, -3)
                       .concat(",", flowerInfo.price
