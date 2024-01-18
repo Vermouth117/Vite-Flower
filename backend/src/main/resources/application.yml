@@ -3,6 +3,9 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5431/flower_shop
     username: user
-    password: password
+    password: flower
   jpa:
     show-sql: true
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
