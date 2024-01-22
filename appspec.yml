@@ -7,4 +7,4 @@ files:
     overwrite: true
 hooks:
   ApplicationStart:
-    - location: java -jar ./flower-0.0.1-SNAPSHOT.jar
+    - location: deploy_script.sh

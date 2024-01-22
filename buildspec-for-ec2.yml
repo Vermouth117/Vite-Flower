@@ -8,12 +8,14 @@ phases:
     # - some command
   pre_build: # ビルド実行前に実行する処理等の設定
     commands:
+      - chmod +x deploy_script.sh
       - cd frontend
       - npm i
   build: # ビルド実行処理等の設定
     commands:
       - npm run build
       - cp ../appspec.yml dist/ # appspec.yml を dist ディレクトリにコピー
+      - cp ../deploy_script.sh dist/
       - cd ..
       - cd backend
       - ./gradlew build
