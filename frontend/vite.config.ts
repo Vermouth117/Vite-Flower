@@ -10,10 +10,6 @@ export default defineConfig({
     environment: "jsdom",
   },
   build: {
-    outDir: 'dist', // ビルド出力ディレクトリの指定
-    assetsDir: '', // 静的アセットの出力ディレクトリの指定
-    rollupOptions: {
-      input: 'index.html', // エントリーポイントの指定
-    },
+    assetsDir: "",   // 静的アセットの出力ディレクトリの指定
   },
 });
