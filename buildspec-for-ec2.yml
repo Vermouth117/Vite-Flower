@@ -18,6 +18,8 @@ phases:
       - cd backend
       - ./gradlew build
       - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../frontend/dist
+      - cd ..
+      - cd frontend
   post_build:
     commands:
       - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source dist
