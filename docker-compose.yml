@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.9-alpine3.18
+    container_name: flower_shop_db
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "flower"
+      POSTGRES_DB: "flower_shop"
