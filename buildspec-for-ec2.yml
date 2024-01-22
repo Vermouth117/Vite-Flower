@@ -20,4 +20,4 @@ phases:
 artifacts:
   files: # 出力するビルドファイル
     - "**/*"
-  base-directory: "frontend/dist"
+  base-directory: frontend/dist
