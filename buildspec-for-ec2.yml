@@ -16,7 +16,7 @@ phases:
       - cp ../appspec.yml dist/ # appspec.yml を dist ディレクトリにコピー
   post_build:
     commands:
-      - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source out
+      - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source dist
 artifacts:
   files: # 出力するビルドファイル
     - "**/*"
