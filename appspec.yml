@@ -6,4 +6,5 @@ files:
     destination: /var/www/html/
     overwrite: true
 hooks:
-  ValidateService: java -jar ./flower-0.0.1-SNAPSHOT.jar
+  ApplicationStart:
+    - location: java -jar ./flower-0.0.1-SNAPSHOT.jar
