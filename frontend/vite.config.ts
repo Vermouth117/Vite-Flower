@@ -11,6 +11,5 @@ export default defineConfig({
   },
   build: {
     assetsDir: "",   // 静的アセットの出力ディレクトリの指定
-    // outDir: "dist/frontend"
   },
 });
