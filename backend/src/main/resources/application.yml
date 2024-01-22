@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://morisaki-rds.ctxc0xamayvr.ap-northeast-1.rds.amazonaws.com/flower_shop
+    url: jdbc:postgresql://morisaki-rds.ctxc0xamayvr.ap-northeast-1.rds.amazonaws.com:5432/flower_shop
 #    url: jdbc:postgresql://localhost:5431/flower_shop
     username: flower
 #    username: user
