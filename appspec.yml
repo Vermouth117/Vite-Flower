@@ -7,4 +7,4 @@ files:
     overwrite: true
 hooks:
   ApplicationStart:
-    - location: deploy_script.sh
+    - location: /var/www/html/deploy_script.sh
