@@ -8,4 +8,4 @@ files:
 hooks:
   ApplicationStart:
     - location: ./deploy_script.sh
-      timeout: 300
+      timeout: 600
