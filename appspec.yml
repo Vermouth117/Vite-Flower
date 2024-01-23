@@ -22,3 +22,4 @@ permissions:
 hooks:
   AfterInstall:
     - location: ./deploy_script.sh
+      runas: root
