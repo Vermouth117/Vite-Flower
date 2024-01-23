@@ -6,5 +6,5 @@ sudo
 #/usr/bin/java -jar ./flower-0.0.1-SNAPSHOT.jar
 
 java -jar ./flower-0.0.1-SNAPSHOT.jar \
-    >> ./flower-0.0.1-SNAPSHOT.jar \
+    >> ./flower-0.0.1-SNAPSHOT.log \
     2>&1 &
