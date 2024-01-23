@@ -12,7 +12,7 @@ const OnlineShop = memo(() => {
   useEffect(() => {
     (async () => {
       const flowerList = await fetch(
-        "/flowerList"
+        "http://ip-10-0-74-1.ap-northeast-1.compute.internal:8080/flowerList"
         // "http://localhost:8080/flowerList"
       ).then((data) => data.json());
       setFlowerList(flowerList);
