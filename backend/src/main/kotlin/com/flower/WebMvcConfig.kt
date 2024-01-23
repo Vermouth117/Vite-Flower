@@ -10,7 +10,7 @@ class WebMvcConfig : WebMvcConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
         super.addCorsMappings(registry)
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:5173")
+            .allowedOrigins("http://localhost:5173", "https://www.vermouth7.com")
             .allowedMethods("*")
             .allowedHeaders("*")
             .allowCredentials(true)   // クッキーやHTTP認証などを含むリクエストを許可するかどうか
