@@ -19,7 +19,6 @@ phases:
       - cp ../deploy_script.sh dist/
       - cd ..
       - cd backend
-      - mvn install
       - chmod +x ./gradlew
       - ./gradlew build
       - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../frontend/dist
