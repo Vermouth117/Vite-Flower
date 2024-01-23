@@ -7,5 +7,4 @@ files:
     overwrite: true
 hooks:
   ApplicationStart:
-    - location: deploy_script.sh
-      timeout: 600
+    - location: /var/www/html/deploy_script.sh
