@@ -20,5 +20,5 @@ permissions:
     type:
       - file
 hooks:
-  ApplicationStart:
+  AfterInstall:
     - location: ./deploy_script.sh
