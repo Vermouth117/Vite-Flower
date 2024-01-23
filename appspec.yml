@@ -21,4 +21,4 @@ permissions:
       - file
 hooks:
   ApplicationStart:
-    - location: deploy_script.sh
+    - location: ./deploy_script.sh
