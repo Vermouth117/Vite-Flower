@@ -15,19 +15,17 @@ phases:
   build: # ビルド実行処理等の設定
     commands:
       - npm run build
-      - cp ../appspec.yml dist/ # appspec.yml を dist ディレクトリにコピー
-      - cp ../deploy_script.sh dist/
-      - cd ..
-      - cd backend
+      - cp ./dist/* ../backend/src/main/resources/public
+      - cd ../backend
       - chmod +x ./gradlew
       - ./gradlew build
-      - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../frontend/dist
-      - cd ..
-      - cd frontend
+      - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../build
+      - cp ../appspec.yml ../build
+      - cp ../deploy_script.sh ../build
   post_build:
     commands:
-      - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source dist
+      - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source build
 artifacts:
   files: # 出力するビルドファイル
     - "**/*"
-  base-directory: frontend/dist
+  base-directory: build
