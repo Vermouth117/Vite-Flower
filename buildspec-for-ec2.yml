@@ -24,7 +24,7 @@ phases:
       - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../build
       - cp ../appspec.yml ../build
       - cp ../deploy_script.sh ../build
-#      - cp src/main/resources/public/* ../build
+      - cp src/main/resources/public ../build
       - cd ..
   post_build:
     commands:
