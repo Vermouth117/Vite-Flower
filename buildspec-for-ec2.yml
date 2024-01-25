@@ -20,6 +20,7 @@ phases:
       - cd ../backend
       - chmod +x ./gradlew
       - ./gradlew build
+      - mkdir -p ../build
       - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../build
       - cp ../appspec.yml ../build
       - cp ../deploy_script.sh ../build
