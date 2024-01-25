@@ -9,7 +9,7 @@ phases:
 #     - some command
   pre_build: # ビルド実行前に実行する処理等の設定
     commands:
-      - chmod +x deploy_script.sh
+#      - chmod +x deploy_script.sh
       - cd frontend
       - npm i
   build: # ビルド実行処理等の設定
@@ -25,11 +25,11 @@ phases:
       - cp ../appspec.yml ../build
       - cp ../deploy_script.sh ../build
       - cp -r src/main/resources/public ../build
-      - cd ..
+#      - cd ..
   post_build:
     commands:
-      - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source build
+      - aws deploy push --application-name morisaki-for-ec2 --s3-location s3://morisaki-for-deploy-of-ec2/artifact.zip --source ../build
 artifacts:
   files: # 出力するビルドファイル
     - "**/*"
-  base-directory: build
+  base-directory: ../build
