@@ -32,4 +32,4 @@ phases:
 artifacts:
   files: # 出力するビルドファイル
     - "**/*"
-  base-directory: ../build
+  base-directory: build
