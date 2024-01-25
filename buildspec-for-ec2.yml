@@ -6,7 +6,7 @@ phases:
       nodejs: 18
       java: corretto17
     commands:
-    # - some command
+#     - some command
   pre_build: # ビルド実行前に実行する処理等の設定
     commands:
       - chmod +x deploy_script.sh
