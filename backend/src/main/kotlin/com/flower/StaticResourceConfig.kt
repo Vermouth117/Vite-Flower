@@ -9,15 +9,15 @@ import org.springframework.web.servlet.resource.PathResourceResolver
 @Configuration
 class StaticResourceConfig : WebMvcConfigurer {
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-        registry.addResourceHandler("/index.html")
-            .addResourceLocations("classpath:/public/index.html")
-            .setCachePeriod(0)
+        registry.addResourceHandler("/index.html")               // "/index.html"パスに対する静的リソースのハンドリング
+            .addResourceLocations("classpath:/public/index.html")   // パスに対応するリソースの場所
+            .setCachePeriod(0)                                                // キャッシュ期間は無効化している
 
         registry.addResourceHandler("/about", "/contact", "/order", "/online-shop", "/cart", "/user")
-            .addResourceLocations("classpath:/public/")
+            .addResourceLocations("classpath:/public/index.html")
             .setCachePeriod(0)
-            .resourceChain(false)
-            .addResolver(IndexHtmlResourceResolver())
+            .resourceChain(true)          // ブラウザのキャッシュを効果的に活用して、リソースの変更が検知された際に最新のリソースを提供する
+            .addResolver(IndexHtmlResourceResolver())   // 上記パスに対するリソースがリクエストされた場合に、代わりに "index.html" を提供する
     }
 
     class IndexHtmlResourceResolver : PathResourceResolver() {
