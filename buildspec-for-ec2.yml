@@ -16,7 +16,7 @@ phases:
       - mkdir -p ../backend/src/main/resources/public
       - cp ./dist/* ../backend/src/main/resources/public
       - cd ../backend
-      - chmod +x ./gradlew
+#      - chmod +x ./gradlew
       - ./gradlew build
       - mkdir -p ../build
       - cp build/libs/flower-0.0.1-SNAPSHOT.jar ../build
