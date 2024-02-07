@@ -15,7 +15,7 @@ RUN cd frontend && \
     cp ../appspec.yml ../build && \
     cp ../deploy_script.sh ../build
 
-COPY ../build /var/www/html/
+COPY build/ /var/www/html/
 
 RUN echo '. /etc/apache2/envvars' > /root/run_apache.sh && \
     echo 'mkdir -p /var/run/apache2' >> /root/run_apache.sh && \
