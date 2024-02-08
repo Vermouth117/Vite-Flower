@@ -6,5 +6,5 @@ Resources:
       Properties:
         TaskDefinition: "<TASK_DEFINITION>"
         LoadBalancerInfo:
-          ContainerName: "morisaki-container"
+          ContainerName: "morisaki-spring-container"
           ContainerPort: "8080"
