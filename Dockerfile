@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && \
-    apt-get -y install apache2
+    apt-get -y install apache2 openjdk-17-jdk
 
 COPY build /var/www/html/
 
