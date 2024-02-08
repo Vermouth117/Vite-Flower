@@ -3,19 +3,7 @@ FROM ubuntu:18.04
 RUN apt-get update && \
     apt-get -y install apache2
 
-RUN cd frontend && \
-    npm i && \
-    npm run build && \
-    mkdir -p ../backend/src/main/resources/public && \
-    cp ./dist/* ../backend/src/main/resources/public && \
-    cd ../backend && \
-    ./gradlew build && \
-    mkdir -p ../build && \
-    cp build/libs/flower-0.0.1-SNAPSHOT.jar ../build && \
-    cp ../appspec.yml ../build && \
-    cp ../deploy_script.sh ../build
-
-COPY build/ /var/www/html/
+COPY build /var/www/html/
 
 RUN echo '. /etc/apache2/envvars' > /root/run_apache.sh && \
     echo 'mkdir -p /var/run/apache2' >> /root/run_apache.sh && \
