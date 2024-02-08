@@ -15,6 +15,6 @@ RUN echo '. /etc/apache2/envvars' > /root/run_apache.sh && \
     echo 'java -jar ./flower-0.0.1-SNAPSHOT.jar &' >> /root/run_apache.sh && \
     chmod 755 /root/run_apache.sh
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD /root/run_apache.sh
