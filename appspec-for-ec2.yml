@@ -1,0 +1,13 @@
+version: 0.0
+os: linux
+
+# source：　デプロイするファイルのソースディレクトリ（ここではルートディレクトリを指定）
+# destination：　ファイルがデプロイされる先のディレクトリ（ここでは/var/www/html/を指定）
+# overwrite：　既存のファイルを上書きするかどうかを指定（trueなので、既存のファイルがあれば上書き）
+files:
+  - source: /
+    destination: /var/www/html/
+    overwrite: true
+hooks:
+  AfterInstall:
+    - location: ./ec2_deploy_script.sh
