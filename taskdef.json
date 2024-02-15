@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:398649269234:task-definition/morisaki-task-for-fargate:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:398649269234:task-definition/morisaki-fargate-task:5",
     "containerDefinitions": [
         {
             "name": "morisaki-spring-container",
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/morisaki-task-for-fargate",
+                    "awslogs-group": "/ecs/morisaki-fargate-task",
                     "awslogs-region": "ap-northeast-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -32,10 +32,10 @@
             }
         }
     ],
-    "family": "morisaki-task-for-fargate",
+    "family": "morisaki-fargate-task",
     "executionRoleArn": "arn:aws:iam::398649269234:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 5,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -78,6 +78,6 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-02-08T03:46:38.709Z",
+    "registeredAt": "2024-02-15T05:49:11.286Z",
     "registeredBy": "arn:aws:sts::398649269234:assumed-role/AWSReservedSSO_DeveloperAccessExt_bde6157efb34d2d9/yohei_morisaki"
 }
